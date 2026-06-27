@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>REST Client</title>
+    <title>Cinesearch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <style>
     * {
@@ -11,34 +13,246 @@
         padding: 0;
         box-sizing: border-box;
     }
+    :root {
+        --bg: #0c0c0e;
+        --surface: #17171a;
+        --gold: #d4a24c;
+        --text: #f0ede4;
+        --muted: #8c8980;
+        --error: #c1554d;
+    }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+    }
     .container {
-        height: 100vh;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        padding: 60px 24px 80px;
+    }
+    .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 10px;
+    }
+    h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(40px, 8vw, 72px);
+        letter-spacing: 0.04em;
+        line-height: 1;
+        margin-bottom: 40px;
     }
     form {
         display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
+        gap: 12px;
+        width: 100%;
+        max-width: 420px;
+        margin-bottom: 48px;
     }
-    label,
-    input[type="submit"],
-    input[type="button"] {
-        margin-top: 20px;
+    input[type="number"] {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid #2a2a2e;
+        border-radius: 6px;
+        padding: 14px 16px;
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+    }
+    input[type="number"]:focus {
+        outline: 2px solid var(--gold);
+        outline-offset: 1px;
+    }
+    button {
+        background: var(--gold);
+        color: #1a1408;
+        border: none;
+        border-radius: 6px;
+        padding: 14px 24px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: filter 0.15s ease;
+    }
+    button:hover {
+        filter: brightness(1.08);
+    }
+    button:focus-visible {
+        outline: 2px solid var(--text);
+        outline-offset: 2px;
+    }
+
+    /* Ticket stub */
+    .ticket {
+        display: none;
+        width: 100%;
+        max-width: 640px;
+        background: var(--surface);
+        border-radius: 14px;
+        position: relative;
+        overflow: hidden;
+    }
+    .ticket.visible {
+        display: block;
+    }
+    .ticket::before,
+    .ticket::after {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: var(--bg);
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+    .ticket::before { left: -14px; }
+    .ticket::after { right: -14px; }
+
+    .ticket-main {
+        display: flex;
+        gap: 24px;
+        padding: 28px;
+    }
+    .poster {
+        width: 140px;
+        min-width: 140px;
+        height: 210px;
+        border-radius: 8px;
+        object-fit: cover;
+        background: #222;
+    }
+    .info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .movie-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 30px;
+        letter-spacing: 0.02em;
+        line-height: 1.05;
+    }
+    .tagline {
+        color: var(--muted);
+        font-style: italic;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+    .score-ring {
+        --pct: 0%;
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        border-radius: 50%;
+        background: conic-gradient(var(--gold) var(--pct), #2a2a2e var(--pct));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .score-ring-inner {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+    }
+    .pill {
+        background: #222226;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 5px 12px;
+        border-radius: 100px;
+    }
+    .overview {
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 1.55;
+        color: #cfccc3;
+    }
+
+    .perforation {
+        border-top: 1px dashed #2a2a2e;
+        margin: 0 28px;
+    }
+    .ticket-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 28px;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    .status-msg {
+        color: var(--muted);
+        font-size: 14px;
+        margin-top: -16px;
+        margin-bottom: 32px;
+    }
+    .status-msg.error {
+        color: var(--error);
     }
 </style>
 <body>
 <div class="container">
-    <h1>Movie Lookup</h1>
-    <form>
-        <label>Movie ID:</label>
-        <input id="movieId" type="number" value="11" />
-        <input id="lookupBtn" type="button" value="Look Up"/>
+    <div class="eyebrow">Now Screening</div>
+    <h1>CineLookup</h1>
+
+    <form id="lookupForm">
+        <input id="movieId" type="number" placeholder="Movie ID" />
+        <button id="lookupBtn" type="submit">Find</button>
     </form>
-    <div class="result">Click Look Up!</div>
+
+    <div class="status-msg" id="statusMsg"></div>
+
+    <div class="ticket" id="ticket">
+        <div class="ticket-main">
+            <img class="poster" id="poster" src="" alt="" />
+            <div class="info">
+                <div class="title-row">
+                    <div>
+                        <div class="movie-title" id="movieTitle"></div>
+                        <div class="tagline" id="movieTagline"></div>
+                    </div>
+                    <div class="score-ring" id="scoreRing">
+                        <div class="score-ring-inner" id="scoreValue"></div>
+                    </div>
+                </div>
+                <div class="meta-row" id="metaRow"></div>
+                <div class="overview" id="movieOverview"></div>
+            </div>
+        </div>
+        <div class="perforation"></div>
+        <div class="ticket-footer">
+            <span id="footerId"></span>
+            <span>Admit One</span>
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="/javascripts/scripts.js"></script>
 </body>
