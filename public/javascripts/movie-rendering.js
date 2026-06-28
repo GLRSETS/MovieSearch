@@ -1,3 +1,14 @@
+/*
+Description : Script to render the movie and all it's information from the API
+ */
+
+function showStatus(message, error) {
+    const statusMsg = document.querySelector('#statusMsg');
+    statusMsg.innerText = message;
+    // If it is an error, the message will be red
+    statusMsg.classList.toggle("error", Boolean(error));
+}
+
 function formatMovieTime(time) {
     if (!time)
         return null;
@@ -49,13 +60,10 @@ function showMovie(movie) {
         metaRow.appendChild(span);
     });
 
-    ticket.classList.add("visible");
+    document.querySelector("#ticket").classList.add("visible");
 }
 
 function fetchMovieID(movieId) {
-    ticket.classList.remove("visible");
-    showStatus("Searching the archive…", false);
-
     // HTTP GET request to our internal server
     fetch(`/movie/${movieId}`)
         // Receives raw HTTP and transforms it into JSON

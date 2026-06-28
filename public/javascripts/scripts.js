@@ -1,9 +1,11 @@
+/*
+Description: Script to implement the movie search by title or movie ID, renders the list of movies when using title search
+             Calls showStatus from movie-rendering.js (some dependency in exchange for less duplicate code)
+ */
+
 const formID = document.querySelector('#lookupForm');
 const formTitle = document.querySelector('#lookupFormTitle');
-const statusMsg = document.querySelector('#statusMsg');
 const movieList = document.querySelector("#movieList");
-
-
 
 /*
 Description : Renders the movie list that matches the title search
@@ -48,14 +50,6 @@ function showMovieList(movieArray) {
 
     movieList.classList.add("visible");
 }
-
-function showStatus(message, error) {
-    statusMsg.innerText = message;
-    // If it is an error, the message will be red
-    statusMsg.classList.toggle("error", Boolean(error));
-}
-
-
 
 function movieTitleSearch(event) {
     event.preventDefault();

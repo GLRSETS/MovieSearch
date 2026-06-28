@@ -160,6 +160,57 @@ button:focus-visible {
   color: var(--muted);
 }
 
+form {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 48px;
+}
+input[type="number"] {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid #2a2a2e;
+  border-radius: 6px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+input[type="number"]:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+/* Hide arrows in search bar on Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Hide arrows in search bar on Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+button {
+  background: var(--gold);
+  color: #1a1408;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+button:hover {
+  filter: brightness(1.08);
+}
+button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
 /* Ticket stub */
 .ticket {
   display: none;

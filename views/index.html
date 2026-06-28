@@ -10,26 +10,23 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="eyebrow">Now Screening</div>
-    <h1>Cinesearch</h1>
-
-    <form id="lookupFormTitle">
-        <input id="movieName" type="text" value="" placeholder="Movie Name" />
-        <button id="lookupBtn2" type="submit">Find</button>
-    </form>
-
-    <form id="lookupForm">
-        <input id="movieId" type="number" value="" placeholder="Movie ID" />
-        <button id="lookupBtn" type="submit">Find</button>
-    </form>
-
-
-
-    <div class="movie-list" id="movieList"></div>
-
-
-</div>
-<script type="text/javascript" src="/javascripts/scripts.js"></script>
+    <div class="container">
+        <div class="eyebrow">Now Screening</div>
+        <h1>Cinesearch</h1>
+        <div class="divider">search by title</div>
+        <form id="lookupFormTitle">
+            <input id="movieName" type="text" value="" placeholder="Movie Title" />
+            <button id="lookupBtn2" type="submit">Find</button>
+        </form>
+        <div class="divider">search by ID</div>
+        <form id="lookupForm">
+            <input id="movieId" type="number" value="" placeholder="Movie ID" />
+            <button id="lookupBtn" type="submit">Find</button>
+        </form>
+        <div class="movie-list" id="movieList"></div>
+        <div class="status-msg" id="statusMsg"></div>
+    </div>
+    <script type="text/javascript" src="/javascripts/movie-rendering.js"></script>
+    <script type="text/javascript" src="/javascripts/scripts.js"></script>
 </body>
 </html>
