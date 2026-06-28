@@ -87,6 +87,79 @@ button:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 2px;
 }
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  margin: -24px 0 24px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #2a2a2e;
+}
+.movie-list {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 32px;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.movie-list.visible {
+  display: flex;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #222226;
+  transition: background 0.12s ease;
+}
+.result-item:last-child {
+  border-bottom: none;
+}
+.result-item:hover,
+.result-item:focus-visible {
+  background: #1f1f23;
+}
+.result-thumb {
+  width: 32px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: #222;
+  min-width: 32px;
+}
+.result-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.result-title {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-year {
+  font-size: 12px;
+  color: var(--muted);
+}
+
 form {
   display: flex;
   gap: 12px;
@@ -266,4 +339,14 @@ button:focus-visible {
 }
 .status-msg.error {
   color: var(--error);
+}
+
+.back-link {
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.back-link:hover {
+  color: var(--text);
 }
