@@ -2,18 +2,14 @@ var express = require('express');
 var router = express.Router();
 const path = require('path');
 
+
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express' });
   res.sendFile(path.resolve('views', 'index.html'));
-});
-
-// Not currently in use
-router.post("/", (req, res) => {
-  const {a, b} = req.body;
-  res.send({
-    result: parseInt(a) + parseInt(b)
-  });
 });
 
 router.get('/search', async (req, res) => {
@@ -58,6 +54,18 @@ router.get('/movie/:id', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Failed to fetch movie data' });
   }
+});
+
+router.get('/ticket/:id', (req, res) => {
+  res.sendFile(path.resolve('views', 'movie-page.html'));
+});
+
+// Not currently in use
+router.post("/", (req, res) => {
+  const {a, b} = req.body;
+  res.send({
+    result: parseInt(a) + parseInt(b)
+  });
 });
 
 module.exports = router;

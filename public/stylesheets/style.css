@@ -87,55 +87,77 @@ button:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 2px;
 }
-form {
+.divider {
   display: flex;
+  align-items: center;
   gap: 12px;
   width: 100%;
   max-width: 420px;
-  margin-bottom: 48px;
+  margin: -24px 0 24px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-input[type="number"] {
+.divider::before,
+.divider::after {
+  content: "";
   flex: 1;
+  height: 1px;
+  background: #2a2a2e;
+}
+.movie-list {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 32px;
   background: var(--surface);
-  border: 1px solid #2a2a2e;
-  border-radius: 6px;
-  padding: 14px 16px;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  border-radius: 10px;
+  overflow: hidden;
 }
-input[type="number"]:focus {
-  outline: 2px solid var(--gold);
-  outline-offset: 1px;
+.movie-list.visible {
+  display: flex;
 }
-/* Hide arrows in search bar on Chrome, Safari, Edge, Opera */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-/* Hide arrows in search bar on Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-button {
-  background: var(--gold);
-  color: #1a1408;
-  border: none;
-  border-radius: 6px;
-  padding: 14px 24px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 15px;
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: filter 0.15s ease;
+  border-bottom: 1px solid #222226;
+  transition: background 0.12s ease;
 }
-button:hover {
-  filter: brightness(1.08);
+.result-item:last-child {
+  border-bottom: none;
 }
-button:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 2px;
+.result-item:hover,
+.result-item:focus-visible {
+  background: #1f1f23;
+}
+.result-thumb {
+  width: 32px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: #222;
+  min-width: 32px;
+}
+.result-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.result-title {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.result-year {
+  font-size: 12px;
+  color: var(--muted);
 }
 
 /* Ticket stub */
@@ -266,4 +288,14 @@ button:focus-visible {
 }
 .status-msg.error {
   color: var(--error);
+}
+
+.back-link {
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.back-link:hover {
+  color: var(--text);
 }

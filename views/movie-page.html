@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+
+    <title>Movie Trivia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <a class="back-link" href="/">Back to homepage</a>
+        <div class="status-msg" id="statusMsg"></div>
+        <div class="ticket" id="ticket">
+            <div class="ticket-main">
+                <img class="poster" id="poster" src="" alt="" />
+                <div class="info">
+                    <div class="title-row">
+                        <div>
+                            <div class="movie-title" id="movieTitle"></div>
+                            <div class="tagline" id="movieTagline"></div>
+                        </div>
+                        <div class="score-ring" id="scoreRing">
+                            <div class="score-ring-inner" id="scoreValue"></div>
+                        </div>
+                    </div>
+                    <div class="meta-row" id="metaRow"></div>
+                    <div class="overview" id="movieOverview"></div>
+                </div>
+            </div>
+            <div class="perforation"></div>
+            <div class="ticket-footer">
+                <span id="footerId"></span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/javascripts/ticket-rendering.js"></script>
+    <script type="text/javascript" src="/javascripts/movie-rendering.js"></script>
+</body>
+</html>
