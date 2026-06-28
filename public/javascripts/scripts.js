@@ -1,6 +1,8 @@
-const form = document.querySelector('#lookupForm');
+const formID = document.querySelector('#lookupForm');
+const formTitle = document.querySelector('#lookupFormTitle');
 const statusMsg = document.querySelector('#statusMsg');
 const ticket = document.querySelector('#ticket');
+const movieList = document.querySelector("#movieList");
 
 function formatMovieTime(time) {
     if (!time)
@@ -56,23 +58,51 @@ function showMovie(movie) {
     ticket.classList.add("visible");
 }
 
+function showMovieList(movieArray) {
+    movieList.innerHTML = "";
+
+    movieArray.forEach(movie => {
+        const movieItem = document.createElement("div");
+        movieItem.className = "result-item";
+        movieItem.tabIndex = 0;
+
+        const thumbnail = document.createElement("img");
+        thumbnail.className = "result-thumb";
+        thumbnail.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : "";
+        thumbnail.alt = movie.title || "Poster";
+
+        const movieTitle = document.createElement("div");
+        movieTitle.className = "result-title";
+        movieTitle.innerText = movie.title || "Not available";
+
+        const movieYear = document.createElement("div");
+        movieYear.className = "result-year";
+        movieYear.innerText = movie.release_date != null ? movie.release_date.slice(0, 4) : "Not Found";
+
+        movieItem.appendChild(thumbnail);
+        movieItem.appendChild(movieTitle);
+        movieItem.appendChild(movieYear);
+
+        const renderMoviePage = () => {
+
+        };
+
+        movieItem.addEventListener("click", renderMoviePage);
+        movieList.appendChild(movieItem);
+
+    });
+
+    movieList.classList.add("visible");
+
+}
+
 function showStatus(message, error) {
     statusMsg.innerText = message;
     // If it is an error, the message will be red
     statusMsg.classList.toggle("error", Boolean(error));
 }
 
-
-
-function movieIDSearch(event) {
-    event.preventDefault();
-
-    const movieId = document.querySelector("#movieId").value;
-    if (!movieId) {
-        showStatus("Enter a movie ID to look up.", true);
-        return;
-    }
-
+function fetchMovieID(movieId) {
     ticket.classList.remove("visible");
     showStatus("Searching the archive…", false);
 
@@ -95,8 +125,60 @@ function movieIDSearch(event) {
             showStatus(error.message || "Something went wrong.", true);
         });
 }
+
+function movieTitleSearch(event) {
+    event.preventDefault();
+
+    const movieTitle = document.querySelector("#movieName").value.trim();
+    if (!movieTitle) {
+        showStatus("Enter a movie title to look up.", true);
+        return;
+    }
+
+    movieList.classList.remove("visible");
+    ticket.classList.remove("visible");
+    showStatus("Searching the archive…", false);
+
+    // HTTP GET request to our internal server
+    fetch(`/search?title=${encodeURIComponent(movieTitle)}`)
+        // Receives raw HTTP and transforms it into JSON
+        .then(response => response.json()
+            // Returns a plain object bundle ; respone.ok : Success status, data : The actual movie data
+            .then(data => ({ ok: response.ok, data })))
+        // Destructures the bundle into separate variables
+        .then(({ ok, data }) => {
+            if (!ok) {
+                throw new Error(data.status_message || "Movie not found.");
+            }
+            if (!data.results || data.results.length === 0) {
+                throw new Error("No movies found with that title.");
+            }
+
+            showStatus("", false);
+            showMovieList(data.results);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            showStatus(error.message || "Something went wrong.", true);
+        });
+}
+
+function movieIDSearch(event) {
+    event.preventDefault();
+
+    const movieId = document.querySelector("#movieId").value;
+    if (!movieId) {
+        showStatus("Enter a movie ID to look up.", true);
+        return;
+    }
+
+    fetchMovieID(movieId);
+
+
+}
 // Triggers when the button is clicked or by pressing enter
-form.addEventListener("submit", movieIDSearch);
+formID.addEventListener("submit", movieIDSearch);
+formTitle.addEventListener("submit", movieTitleSearch);
 
 
 // Since the script call is right before </body>, #lookupBtn already exists in the DOM

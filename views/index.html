@@ -54,6 +54,56 @@
         max-width: 420px;
         margin-bottom: 48px;
     }
+    input[type="text"] {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid #2a2a2e;
+        border-radius: 6px;
+        padding: 14px 16px;
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+    }
+    input[type="text"]:focus {
+        outline: 2px solid var(--gold);
+        outline-offset: 1px;
+    }
+    /* Hide arrows in search bar on Chrome, Safari, Edge, Opera */
+    input[type="text"]::-webkit-outer-spin-button,
+    input[type="text"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Hide arrows in search bar on Firefox */
+    input[type="text"] {
+        -moz-appearance: textfield;
+    }
+    button {
+        background: var(--gold);
+        color: #1a1408;
+        border: none;
+        border-radius: 6px;
+        padding: 14px 24px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: filter 0.15s ease;
+    }
+    button:hover {
+        filter: brightness(1.08);
+    }
+    button:focus-visible {
+        outline: 2px solid var(--text);
+        outline-offset: 2px;
+    }
+    form {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+        max-width: 420px;
+        margin-bottom: 48px;
+    }
     input[type="number"] {
         flex: 1;
         background: var(--surface);
@@ -67,6 +117,16 @@
     input[type="number"]:focus {
         outline: 2px solid var(--gold);
         outline-offset: 1px;
+    }
+    /* Hide arrows in search bar on Chrome, Safari, Edge, Opera */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Hide arrows in search bar on Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
     }
     button {
         background: var(--gold);
@@ -221,14 +281,21 @@
 <body>
 <div class="container">
     <div class="eyebrow">Now Screening</div>
-    <h1>CineLookup</h1>
+    <h1>Cinesearch</h1>
+
+    <form id="lookupFormTitle">
+        <input id="movieName" type="text" value="" placeholder="Movie Name" />
+        <button id="lookupBtn2" type="submit">Find</button>
+    </form>
 
     <form id="lookupForm">
-        <input id="movieId" type="number" placeholder="Movie ID" />
+        <input id="movieId" type="number" value="" placeholder="Movie ID" />
         <button id="lookupBtn" type="submit">Find</button>
     </form>
 
     <div class="status-msg" id="statusMsg"></div>
+
+    <div class="movie-list" id="movieList"></div>
 
     <div class="ticket" id="ticket">
         <div class="ticket-main">
@@ -250,7 +317,6 @@
         <div class="perforation"></div>
         <div class="ticket-footer">
             <span id="footerId"></span>
-            <span>Admit One</span>
         </div>
     </div>
 </div>
