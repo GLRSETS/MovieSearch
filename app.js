@@ -40,9 +40,14 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Set status code
   res.status(err.status || 500);
-  res.render('error');
+  // Send JSON error msg
+  res.json({
+      status: statusCode,
+      message: err.message,
+      error: req.app.get('env') === 'development' ? err.stack : {}
+  })
 });
 
 module.exports = app;
