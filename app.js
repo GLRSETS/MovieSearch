@@ -23,10 +23,10 @@ app.use(cookieParser());
 // Static files are served from public/ at the root URL
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', pagesRoute);
+app.use('/home', pagesRoute);
 app.use('/users', usersRoute);
-app.use('/', movieRoute);
-app.use('/', deployRoute);
+app.use('/movie', movieRoute);
+app.use('/deploy', deployRoute);
 
 
 // catch 404 and forward to error handler
