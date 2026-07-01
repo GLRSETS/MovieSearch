@@ -74,7 +74,7 @@ function executeBackgroundDeployment() {
         execSync(`git -C ${PROJECT_PATH} pull origin main`, { encoding: 'utf8' });
 
         console.log('[Deploy] Synchronizing package dependency builds...');
-        execSync(`npm --prefix ${PROJECT_PATH} install --production`, { encoding: 'utf8' });
+        execSync(`npm --prefix ${PROJECT_PATH} install --omit=dev`, { encoding: 'utf8' });
 
         console.log('[Deploy] File compilation/update successful. Requesting standalone server spawn...');
 
