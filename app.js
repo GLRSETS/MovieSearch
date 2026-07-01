@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', deployRoute);
 app.use('/', pagesRoute);
 app.use('/users', usersRoute);
-app.use('/movie', movieRoute);
+app.use('/', movieRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
