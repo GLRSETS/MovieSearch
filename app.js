@@ -17,14 +17,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-// Webhook gets the request before it gets turned into JSON data
-app.use('/', deployRoute);
-app.use(express.json());
+// This lets us grab req.body and req.rawBody(for crypto) without messing with code order
+app.use(express.json({
+    verify: (req, res, buf) => {
+        req.rawBody = buf.toString('utf8');
+    }
+}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // Static files are served from public/ at the root URL
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use('/', deployRoute);
 app.use('/', pagesRoute);
 app.use('/users', usersRoute);
 app.use('/movie', movieRoute);
