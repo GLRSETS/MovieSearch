@@ -11,7 +11,7 @@ const movieRoute = require('./routes/movie-api');
 const deployRoute = require('./routes/deploy');
 
 const app = express();
-app.use('/deploy', express.raw({ type: 'application/json' }));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -23,10 +23,10 @@ app.use(cookieParser());
 // Static files are served from public/ at the root URL
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/home', pagesRoute);
+app.use('/', pagesRoute);
 app.use('/users', usersRoute);
 app.use('/movie', movieRoute);
-app.use('/deploy', deployRoute);
+app.use('/', deployRoute);
 
 
 // catch 404 and forward to error handler

@@ -3,7 +3,8 @@ const router = express.Router();
 const crypto = require('crypto');
 const { execSync } = require('child_process');
 
-router.post('/deploy', (req, res) => {
+// express.raw intercepts incoming request before the global app.use(express.json()) since we need the raw data for cryptography
+router.post('/deploy', express.raw({ type: 'application/json' }), (req, res) => {
     const secret = process.env.DEPLOY_SECRET;
     const signature = req.headers['x-hub-signature-256'];
 
@@ -14,7 +15,7 @@ router.post('/deploy', (req, res) => {
     // Calculate the signature so we can compare it to the one from Github
     const hmac = 'sha256=' + crypto
         .createHmac('sha256', secret)
-        .update(req.body) // Assumes express.raw() handles this route globally or via middleware
+        .update(req.body) // req.body is a raw buffer because of express.raw in post variables
         .digest('hex');
 
     const trusted = Buffer.from(hmac);
