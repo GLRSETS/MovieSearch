@@ -41,7 +41,8 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // Set status code
-  res.status(err.status || 500);
+    const statusCode = err.status || 500
+  res.status(statusCode);
   // Send JSON error msg
   res.json({
       status: statusCode,
