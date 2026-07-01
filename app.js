@@ -17,6 +17,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+// Webhook gets the request before it gets turned into JSON data
+app.use('/', deployRoute);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -26,8 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', pagesRoute);
 app.use('/users', usersRoute);
 app.use('/movie', movieRoute);
-app.use('/', deployRoute);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
