@@ -62,8 +62,8 @@ This next section gives some details about the self-hosting (for example, on an 
 ## Additional prerequisites
 
 - [DuckDNS](https://www.duckdns.org/)
-- PM2
-- Caddy
+- [PM2](https://pm2.io/)
+- [Caddy](https://caddyserver.com/)
   
 | Tool | Purpose |
 |---|---|
