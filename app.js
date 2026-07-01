@@ -1,15 +1,17 @@
 require('dotenv').config();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const pagesRoute = require('./routes/web-pages');
+const usersRoute = require('./routes/users');
+const movieRoute = require('./routes/movie-api');
+const deployRoute = require('./routes/deploy');
 
-var app = express();
-
+const app = express();
+app.use('/deploy', express.raw({ type: 'application/json' }));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -21,8 +23,11 @@ app.use(cookieParser());
 // Static files are served from public/ at the root URL
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', pagesRoute);
+app.use('/users', usersRoute);
+app.use('/', movieRoute);
+app.use('/', deployRoute);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
