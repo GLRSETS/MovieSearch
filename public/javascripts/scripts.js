@@ -3,7 +3,6 @@ Description: Script to implement the movie search by title or movie ID, renders 
              Calls showStatus from movie-rendering.js (some dependency in exchange for less duplicate code)
  */
 
-const formID = document.querySelector('#lookupForm');
 const formTitle = document.querySelector('#lookupFormTitle');
 const movieList = document.querySelector("#movieList");
 
@@ -99,7 +98,6 @@ function movieIDSearch(event) {
     window.location.href = `/ticket/${movieId}`;
 }
 // Triggers when the button is clicked or by pressing enter
-formID.addEventListener("submit", movieIDSearch);
 formTitle.addEventListener("submit", movieTitleSearch);
 
 
