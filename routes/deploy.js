@@ -34,7 +34,7 @@ router.post('/deploy', (req, res) => {
     console.log('Deploy triggered by GitHub push...');
 
     try {
-        const projectPath = process.env.PROJECT_PATH || '/home/default/path';
+        const projectPath = process.env.PROJECT_PATH;
         const output = execSync(
             `cd ${projectPath} && git pull origin main && npm install && pm2 restart cinesearch`,
             { encoding: 'utf8' }
